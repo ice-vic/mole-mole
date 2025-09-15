@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Mole Mole online - an explosive underground adventure game featuring cute mole characters. Free browser-based gameplay with retro pixel art graphics.">
+    <meta name="keywords" content="Mole Mole, online game, browser game, pixel art, underground adventure, explosive action, free game, indie game">
+    <meta name="author" content="Mole Mole Game">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mole Mole - Play Free Online Underground Adventure Game">
+    <meta property="og:description" content="Explosive underground adventures await! Play Mole Mole online - dig tunnels, blow stuff up, and guide adorable moles through challenging levels.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://molemole.lat">
+    <meta property="og:site_name" content="Mole Mole">
+    <meta property="og:image" content="https://molemole.lat/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mole Mole - Free Online Underground Adventure Game">
+    <meta name="twitter:description" content="Play Mole Mole online - explosive underground adventures with cute pixel art moles!">
+    <meta name="twitter:image" content="https://molemole.lat/twitter-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://molemole.lat">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://html-classic.itch.zone">
+    
+    <title>Mole Mole - Play Free Online Underground Adventure Game | Browser Gaming</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --apple-blue: #007AFF;
+            --apple-blue-dark: #0051D0;
+            --apple-light-blue: #5AC8FA;
+            --apple-teal: #30D158;
+            --apple-white: #FFFFFF;
+            --apple-gray-light: #F2F2F7;
+            --apple-gray-medium: #E5E5EA;
+            --apple-gray: #8E8E93;
+            --apple-gray-dark: #1C1C1E;
+            --apple-black: #000000;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --shadow-light: rgba(0, 122, 255, 0.1);
+            --shadow-medium: rgba(0, 122, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--apple-gray-dark);
+            background: linear-gradient(135deg, var(--apple-light-blue) 0%, var(--apple-blue) 50%, var(--apple-blue-dark) 100%);
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        /* Glass morphism utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px var(--shadow-light);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 16px 40px var(--shadow-medium);
+        }
+
+        /* Header and Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--apple-gray-medium);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--apple-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--apple-gray-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--apple-blue);
+            background: var(--apple-gray-light);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu a.play-button {
+            background: linear-gradient(135deg, var(--apple-blue), var(--apple-light-blue));
+            color: var(--apple-white);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .nav-menu a.play-button:hover {
+            background: linear-gradient(135deg, var(--apple-blue-dark), var(--apple-blue));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: var(--apple-gray-light);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--apple-gray-dark);
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--apple-white), var(--apple-light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--apple-white);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: var(--apple-white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Content Sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .content-container {
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            color: var(--apple-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--apple-gray-dark);
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--apple-gray-dark);
+        }
+
+        /* Game Container */
+        .game-section {
+            background: var(--apple-white);
+        }
+
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: var(--apple-gray-dark);
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+            background: var(--apple-gray-dark);
+        }
+
+        .game-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--apple-white);
+            font-size: 1.1rem;
+            font-weight: 500;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .loading-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--apple-white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Feature Cards */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--apple-white);
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--apple-gray-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--apple-blue), var(--apple-light-blue));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h4 {
+            font-size: 1.2rem;
+            color: var(--apple-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--apple-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Game Info Section */
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--apple-gray-light), var(--apple-white));
+            border-radius: 20px;
+            border: 1px solid var(--apple-gray-medium);
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-item .emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .info-item h4 {
+            color: var(--apple-blue);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            color: var(--apple-gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--apple-white);
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 2rem 0;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .content-container {
+                padding: 1.5rem;
+            }
+
+            .game-frame {
+                height: 400px;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+
+            .game-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .content-container {
+                padding: 1rem;
+            }
+
+            .game-frame {
+                height: 350px;
+            }
+
+            .game-info {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        button:focus,
+        a:focus,
+        iframe:focus {
+            outline: 2px solid var(--apple-blue);
+            outline-offset: 2px;
+        }
+
+        /* Smooth fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Game",
+        "name": "Mole Mole",
+        "description": "Explosive underground adventure game featuring cute mole characters. Dig tunnels, blow stuff up, and navigate challenging levels in this engaging browser-based game.",
+        "url": "https://molemole.lat",
+        "applicationCategory": "Game",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "gamePlatform": "Web Browser",
+        "genre": "Action Adventure"
+    }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">🦫 Mole Mole</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#game">Play Game</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#game" class="play-button">🎮 Play Now</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Mole Mole</h1>
+            <p class="subtitle">Explosive underground adventures await in this charming pixel art game where you dig, explore, and blow stuff up!</p>
+            <a href="#game" class="hero-cta">
+                <span>🎮</span>
+                Start Playing Now
+            </a>
+        </section>
+
+        <section id="game" class="section">
+            <div class="content-container glass-strong game-section fade-in">
+                <h2>🎮 Play Mole Mole Online</h2>
+                <p>Jump straight into the underground action! Control your adorable mole character through explosive adventures, dig tunnels, and navigate challenging levels in this delightful browser-based game.</p>
+                
+                <div class="game-container">
+                    <div class="game-loading" id="game-loading">
+                        <div class="loading-spinner"></div>
+                        Loading Mole Mole...
+                    </div>
+                    <iframe 
+                        class="game-frame" 
+                        src="https://html-classic.itch.zone/html/13412841/molemole_html/index.html"
+                        title="Mole Mole Online Game"
+                        allowfullscreen
+                        loading="lazy"
+                        onload="document.getElementById('game-loading').style.display='none'">
+                        <p>Your browser does not support iframes. Please update your browser to play Mole Mole, or visit the game directly at the provided link.</p>
+                    </iframe>
+                </div>
+                
+                <p style="text-align: center; margin-top: 1.5rem; color: var(--apple-gray); font-style: italic;">
+                    Game loads directly in your browser - no downloads required!
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="content-container glass fade-in">
+                <div class="game-info">
+                    <div class="info-item">
+                        <span class="emoji">🆓</span>
+                        <h4>Free to Play</h4>
+                        <p>Completely free browser game with no downloads or registration required</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="emoji">🎨</span>
+                        <h4>Pixel Art Style</h4>
+                        <p>Beautiful retro-inspired graphics with smooth animations</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="emoji">📱</span>
+                        <h4>Cross-Platform</h4>
+                        <p>Works perfectly on desktop, tablet, and mobile devices</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="emoji">⚡</span>
+                        <h4>Instant Play</h4>
+                        <p>Start playing immediately in your web browser</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="content-container glass fade-in">
+                <h2>🌟 About Mole Mole</h2>
+                <p>Mole Mole is an engaging underground adventure game that perfectly captures the charm of classic arcade gaming with modern pixel art aesthetics. In this delightful experience, players control an adorable mole character navigating through intricate underground tunnel systems filled with obstacles, puzzles, and explosive surprises.</p>
+                
+                <p>The game embraces a playful "dig, explore, and blow stuff up" philosophy, combining strategic thinking with action-packed gameplay. Each level presents unique challenges that require both careful planning and quick reflexes, making it accessible to newcomers while offering depth for experienced players.</p>
+
+                <h3>Game Story & Setting</h3>
+                <p>Set in a vibrant underground world, Mole Mole follows the adventures of brave mole characters as they explore vast tunnel networks, ancient underground chambers, and mysterious caverns. The game world is filled with interactive elements, hidden secrets, and dynamic environments that react to player actions.</p>
+
+                <h3>Core Gameplay Mechanics</h3>
+                <p>Players navigate through carefully designed levels using intuitive controls to dig through earth, trigger explosions, solve environmental puzzles, and discover hidden areas. The game features progressive difficulty that gradually introduces new mechanics and challenges, ensuring a satisfying learning curve for players of all skill levels.</p>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="content-container glass fade-in">
+                <h2>✨ Game Features</h2>
+                
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h4>🎨 Beautiful Pixel Art</h4>
+                        <p>Handcrafted retro-style graphics with smooth animations, charming character designs, and detailed underground environments that bring the mole world to life.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🧩 Strategic Puzzle Elements</h4>
+                        <p>Engaging puzzle mechanics that require players to think strategically about digging paths, timing explosions, and navigating complex underground mazes.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>💥 Dynamic Destruction</h4>
+                        <p>Explosive gameplay elements with chain reactions, destructible environments, and spectacular visual effects that make every action feel impactful.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🌐 Browser Optimized</h4>
+                        <p>Fully optimized for web browsers with fast loading times, smooth performance, and compatibility across all modern devices and platforms.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🎵 Immersive Audio</h4>
+                        <p>Delightful sound effects and atmospheric music that enhance the underground adventure experience and provide audio feedback for all actions.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>⭐ Progressive Difficulty</h4>
+                        <p>Carefully balanced level progression that starts simple and gradually introduces more complex challenges, perfect for both casual and dedicated players.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Mole Mole Game. Dig deep, blow stuff up, and have underground adventures!</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Built with ❤️ for indie game enthusiasts everywhere
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Add loading state management for game iframe
+        const gameFrame = document.querySelector('.game-frame');
+        const loadingElement = document.getElementById('game-loading');
+
+        // Show loading spinner initially
+        gameFrame.style.opacity = '0';
+        
+        gameFrame.addEventListener('load', () => {
+            loadingElement.style.display = 'none';
+            gameFrame.style.opacity = '1';
+            gameFrame.style.transition = 'opacity 0.5s ease';
+        });
+
+        // Handle iframe loading errors
+        gameFrame.addEventListener('error', () => {
+            loadingElement.innerHTML = '<div style="color: #ff6b6b;">Unable to load game. Please try refreshing the page.</div>';
+        });
+
+        // Preload critical resources
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = 'https://html-classic.itch.zone/html/13412841/molemole_html/index.html';
+        preloadLink.as = 'document';
+        document.head.appendChild(preloadLink);
+    </script>
+</body>
+</html>
